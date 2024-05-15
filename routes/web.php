@@ -1,27 +1,20 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthManager;
 
-
-// not registered
-Route::get('/homepage', function () {
-    return view('homepage');
-})->name('homepage');
-// registered
-Route::middleware('auth')->group(function () {
-    Route::get('/homepage', 'HomeController@index')->name('homepage');
-
+Route::get('/', function () {
+    return view('welcome');
 });
 
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/login', [AuthManager::class, 'login'])->name('login');
-Route::post('/login', [AuthManager::class, 'loginPost'])->name('login.post');
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
-Route::get('/registration', [AuthManager::class, 'registration'])->name('registration');
-Route::post('/registration', [AuthManager::class, 'registrationPost'])->name('registration.post');
-Route::get('/logout', [AuthManager::class, 'logout'])->name('logout');
-
-
-
-
+require __DIR__.'/auth.php';

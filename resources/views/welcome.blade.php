@@ -106,7 +106,7 @@
     </div>
     <nav>
         <a href="#">About</a>
-        <a href="{{ route('registration') }}">Sign Up</a>
+        <a href="{{ route('register') }}">Sign Up</a>
         @if(auth()->check())
             <a href="#">{{ auth()->user()->name }}</a>
         @else

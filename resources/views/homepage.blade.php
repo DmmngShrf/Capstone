@@ -107,7 +107,7 @@
     <nav>
         @guest
             <a href="{{ route('login') }}">Login</a>
-            <a href="{{ route('registration') }}">Register</a>
+            <a href="{{ route('register') }}">Register</a>
         @else
             <a href="{{ route('logout') }}">Logout</a>
         @endguest
